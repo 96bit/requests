@@ -5,13 +5,12 @@ import (
 	"encoding/json"
 	"github.com/tidwall/gjson"
 	"io"
-	"io/ioutil"
 	"log"
 	"net/http"
 )
 
 /*
-*网络请求封装
+*网络请求封装1
  */
 
 type ClientOption struct {
@@ -60,7 +59,7 @@ func (option ClientOption) Get() []byte {
 		}
 	}(res.Body) //一定要关闭res.Body
 	//读取body
-	resBody, err := ioutil.ReadAll(res.Body) //把  body 内容读入字符串 s
+	resBody, err := io.ReadAll(res.Body) //把  body 内容读入字符串 s
 	if err != nil {
 		return nil
 	}
@@ -118,7 +117,7 @@ func (option *ClientOption) Post() []byte {
 		}
 	}(res.Body) //一定要关闭res.Body
 	//读取body
-	resBody, err := ioutil.ReadAll(res.Body) //把  body 内容读入字符串 s
+	resBody, err := io.ReadAll(res.Body) //把  body 内容读入字符串 s
 	if err != nil {
 		return nil
 	}
