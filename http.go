@@ -10,7 +10,7 @@ import (
 )
 
 /*
-*网络请求封装1
+*网络请求封装
  */
 
 type ClientOption struct {
