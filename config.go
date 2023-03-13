@@ -12,6 +12,8 @@ const (
 	ConfigFile = "./conf/config.yaml"
 )
 
+var CONFIG *Config
+
 type Config struct {
 	System SystemConfig `mapstructure:"system" json:"system" yaml:"system"`
 	Wechat WechatConfig `yaml:"wechat" mapstructure:"wechat" json:"wechat"`
@@ -41,7 +43,7 @@ type BoKaConfig struct {
 	Source   string `json:"source" yaml:"source" mapstructure:"source" `
 }
 
-func InitConf(CONFIG *Config, path ...string) {
+func InitConf(path ...string) {
 
 	var config string
 	if len(path) == 0 {
