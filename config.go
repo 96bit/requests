@@ -41,7 +41,7 @@ type BoKaConfig struct {
 	Source   string `json:"source" yaml:"source" mapstructure:"source" `
 }
 
-func InitConf(CONFIG *Config, path ...string) {
+func InitConf(CONFIG Config, path ...string) {
 
 	var config string
 	if len(path) == 0 {
