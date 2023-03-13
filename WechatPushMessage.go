@@ -5,6 +5,8 @@ import (
 	"time"
 )
 
+// 推送
+
 type PushWechatOption struct {
 	Token string                 `json:"token"`
 	Body  map[string]interface{} `json:"body"`
