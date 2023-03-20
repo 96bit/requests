@@ -49,7 +49,7 @@ type BoKaConfig struct {
 }
 
 type ConstantConfig struct {
-	ExceptUserList []string `json:"exceptUserList" yaml:"exceptUserList" mapstructure:"userList"`
+	ExceptUserList []string `json:"exceptUserList" yaml:"exceptUserList,flow" mapstructure:"exceptUserList"`
 }
 
 /*
