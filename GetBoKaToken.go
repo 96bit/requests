@@ -35,7 +35,7 @@ func (config *BoKaLoginConfig) GetBoKaToken() (token string, shopId string, expi
 	if data.Get("code").Num == 200 {
 		return data.Get("result.token").String(),
 			data.Get("result.shopId").String(),
-			time.Now().Unix()
+			time.Now().Unix() + 7200
 	}
 
 	return "", "", 0

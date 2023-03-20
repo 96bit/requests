@@ -14,6 +14,10 @@ const (
 
 var CONFIG *Config
 
+/*
+*******************************************************************************************
+ */
+
 type Config struct {
 	System SystemConfig `mapstructure:"system" json:"system" yaml:"system"`
 	Wechat WechatConfig `yaml:"wechat" mapstructure:"wechat" json:"wechat"`
@@ -42,6 +46,10 @@ type BoKaConfig struct {
 	PassWord string `json:"passWord" yaml:"passWord" mapstructure:"passWord" `
 	Source   string `json:"source" yaml:"source" mapstructure:"source" `
 }
+
+/*
+*******************************************************************************************
+ */
 
 func InitConf(path ...string) {
 
