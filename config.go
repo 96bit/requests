@@ -19,9 +19,10 @@ var CONFIG *Config
  */
 
 type Config struct {
-	System SystemConfig `mapstructure:"system" json:"system" yaml:"system"`
-	Wechat WechatConfig `yaml:"wechat" mapstructure:"wechat" json:"wechat"`
-	BoKa   BoKaConfig   `yaml:"bokaApi" mapstructure:"bokaApi" json:"bokaApi"`
+	System   SystemConfig   `mapstructure:"system" json:"system" yaml:"system"`
+	Wechat   WechatConfig   `yaml:"wechat" mapstructure:"wechat" json:"wechat"`
+	BoKa     BoKaConfig     `yaml:"bokaApi" mapstructure:"bokaApi" json:"bokaApi"`
+	Constant ConstantConfig `yaml:"constant" json:"constant" mapstructure:"constant"`
 }
 
 type SystemConfig struct {
@@ -45,6 +46,10 @@ type BoKaConfig struct {
 	UserName string `json:"userName" yaml:"userName" mapstructure:"userName" `
 	PassWord string `json:"passWord" yaml:"passWord" mapstructure:"passWord" `
 	Source   string `json:"source" yaml:"source" mapstructure:"source" `
+}
+
+type ConstantConfig struct {
+	ExceptUserList []string `json:"exceptUserList" yaml:"exceptUserList" mapstructure:"userList"`
 }
 
 /*
