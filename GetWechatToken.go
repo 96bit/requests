@@ -1,13 +1,16 @@
 package requests
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 type WeChatAccessTokenConfig struct {
 	Appid  string `json:"appid"`
 	Secret string `json:"secret"`
 }
 
-func (config *WeChatAccessTokenConfig) GetAccessToken() string {
+func (config *WeChatAccessTokenConfig) GetAccessToken() (token string, err error) {
 	Client := ClientOption{
 		Url: "https://api.weixin.qq.com/cgi-bin/token",
 		Params: map[string]string{
@@ -19,8 +22,8 @@ func (config *WeChatAccessTokenConfig) GetAccessToken() string {
 	res := Client.ToJson(Client.Get())
 	Token := res.Get("access_token").String()
 	if Token == "" {
-		fmt.Println(fmt.Sprintf("GetAccessToken: %s", Token))
+		return "", errors.New(res.String())
 	}
 	fmt.Println(fmt.Sprintf("GetAccessToken: %s", res))
-	return Token
+	return Token, nil
 }
