@@ -13,18 +13,21 @@ func CreateWechatMenu(token string, menusJson string, defaultJsonFilePath string
 		data, _ := json.Marshal(menus)
 		return string(data)
 	}
+	if menusJson == "set" {
+		Client := ClientOption{
+			Url: "https://api.weixin.qq.com/cgi-bin/menu/create",
+			Params: map[string]string{
+				"access_token": token,
+			},
+			Headers: nil,
+			Body:    menus,
+		}
 
-	Client := ClientOption{
-		Url: "https://api.weixin.qq.com/cgi-bin/menu/create",
-		Params: map[string]string{
-			"access_token": token,
-		},
-		Headers: nil,
-		Body:    menus,
+		res := Client.ToJson(Client.Post())
+		return res.String()
 	}
+	return "参数错误"
 
-	res := Client.ToJson(Client.Post())
-	return res.String()
 }
 
 func QueryWechatMenu(token string) gjson.Result {
