@@ -38,7 +38,6 @@ func (user *UsersCourse) GetCourses(data gjson.Result) {
 	for _, k := range result {
 		userId, course := user.GetCourse(k)
 		if len(userId) == 3 {
-			fmt.Println(course)
 			user.Course[userId] = course
 		}
 
