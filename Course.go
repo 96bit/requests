@@ -6,7 +6,12 @@ import (
 	"time"
 )
 
+type UsersCourse struct {
+	Course map[string]UserCourse
+}
+
 type UserCourse struct {
+	User    string
 	Total   int64
 	Tickets []UserDetail
 }
@@ -20,12 +25,25 @@ type UserDetail struct {
 	Detail          string
 }
 
-func (user *UserCourse) GetCourse(data gjson.Result) {
+func (user *UsersCourse) GetCourses(data gjson.Result) {
+	result := data.Get("result").Array()
+
+	for k := range result {
+		userId, course := user.GetCourse(result[k])
+		user.Course[userId] = course
+	}
+
+	return
+}
+
+func (user *UsersCourse) GetCourse(data gjson.Result) (personId string, userCourse UserCourse) {
 	if data.Get("code").Int() != 200 {
 		return
 	}
 	result := data.Get("result.0").Array()
-
+	// 获取工号
+	personId = result[0].Get("person_id").String()
+	userCourse.User = personId
 	for k := range result {
 		if result[k].Get("action_id").Int() == 0 && result[k].Get("person_id").Int() != 0 {
 
@@ -40,16 +58,17 @@ func (user *UserCourse) GetCourse(data gjson.Result) {
 			userDetail.ShareProportion = result[k].Get("share_rate").Float()
 			userDetail.Detail = result[k].Get("comboname").Str
 
-			user.Tickets = append(user.Tickets, userDetail)
+			userCourse.Tickets = append(userCourse.Tickets, userDetail)
 
 		}
 	}
-	for k := range user.Tickets {
-		user.Total += user.Tickets[k].ActualAmount
+	for k := range userCourse.Tickets {
+		userCourse.Total += userCourse.Tickets[k].ActualAmount
 	}
+	return
 }
 
-func GetUserResults(token string, shopId string, userId string, dates ...string) gjson.Result {
+func GetUserResults(token string, shopId string, startUserId string, endUserId string, dates ...string) gjson.Result {
 	var startTime, endTime string
 
 	if len(dates) <= 1 {
@@ -80,8 +99,8 @@ func GetUserResults(token string, shopId string, userId string, dates ...string)
 			"compName":    "孔雀宫-迎春路",
 			"fromdate":    startTime,
 			"todate":      endTime,
-			"fromempl":    userId,
-			"toempl":      userId,
+			"fromempl":    startUserId,
+			"toempl":      endUserId,
 			"inc_card":    1,
 			"inc_service": 1,
 			"inc_goods":   1,
