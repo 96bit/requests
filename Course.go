@@ -26,39 +26,52 @@ type UserDetail struct {
 }
 
 func (user *UsersCourse) GetCourses(data gjson.Result) {
+
+	if data.Get("code").Int() != 200 {
+		return
+	}
+
 	result := data.Get("result").Array()
+
 	user.Course = make(map[string]UserCourse)
 
 	for _, k := range result {
 		userId, course := user.GetCourse(k)
-		user.Course[userId] = course
+		if len(userId) == 3 {
+			fmt.Println(course)
+			user.Course[userId] = course
+		}
+
 	}
 	return
 }
 
 func (user *UsersCourse) GetCourse(data gjson.Result) (personId string, userCourse UserCourse) {
-	if data.Get("code").Int() != 200 {
-		return
-	}
-	result := data.Get("result.0").Array()
-	// 获取工号
 
-	userCourse.User = personId
-	for k := range result {
-		if result[k].Get("action_id").Int() == 0 && result[k].Get("person_id").Int() != 0 {
+	for _, result := range data.Array() {
+		if result.Get("action_id").Int() == 0 && result.Get("person_id").Int() != 0 {
 			if personId == "" {
-				personId = result[k].Get("person_id").String()
+				personId = result.Get("person_id").String()
+				userCourse.User = personId
 			}
 			//a := result[k].Get("amt").Num
 			var userDetail UserDetail
 
-			userDetail.Amount = result[k].Get("amt").Int()
-			userDetail.ActualAmount = result[k].Get("amt3").Int()
-			userDetail.Date = result[k].Get("billdate").Str
-			userDetail.Name = result[k].Get("memname").Str
-			userDetail.MethodPayment = result[k].Get("payway").Str
-			userDetail.ShareProportion = result[k].Get("share_rate").Float()
-			userDetail.Detail = result[k].Get("comboname").Str
+			userDetail.Amount = result.Get("amt").Int()
+			userDetail.ActualAmount = result.Get("amt3").Int()
+			userDetail.Date = result.Get("billdate").Str
+			userDetail.Name = result.Get("memname").Str
+			userDetail.MethodPayment = result.Get("payway").Str
+			userDetail.ShareProportion = result.Get("share_rate").Float()
+
+			linshibianliang := result.Get("comboname").Str
+			if linshibianliang == "" {
+				linshibianliang = "充值或卖卡"
+
+			} else {
+				linshibianliang = "课程: " + linshibianliang
+			}
+			userDetail.Detail = linshibianliang
 
 			userCourse.Tickets = append(userCourse.Tickets, userDetail)
 
