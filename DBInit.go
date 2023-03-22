@@ -1,9 +1,9 @@
 package requests
 
 import (
-	"fmt"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
+	"log"
 	"time"
 )
 
@@ -25,7 +25,7 @@ func InitDB(DBFilePath string, models []interface{}) {
 	if err != nil {
 		return
 	}
-	fmt.Println("register table success")
+	log.Println("register table success")
 	DB = db
 
 }

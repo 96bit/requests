@@ -2,7 +2,7 @@ package requests
 
 import (
 	"errors"
-	"fmt"
+	"log"
 )
 
 type WeChatAccessTokenConfig struct {
@@ -25,6 +25,7 @@ func (config *WeChatAccessTokenConfig) GetAccessToken() (token string, err error
 	if Token == "" {
 		return "", errors.New(res.String())
 	}
-	fmt.Println(fmt.Sprintf("GetAccessToken: %s", res))
+	log.Printf("GetAccessToken: %s", res)
+
 	return Token, nil
 }

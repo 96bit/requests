@@ -2,7 +2,7 @@ package requests
 
 import (
 	"errors"
-	"fmt"
+	"log"
 )
 
 type BoKaLoginConfig struct {
@@ -14,7 +14,7 @@ type BoKaLoginConfig struct {
 }
 
 func (config *BoKaLoginConfig) GetBoKaToken() (token string, shopId string, err error) {
-	fmt.Println("开始获取 NEW TOKEN...")
+	log.Println("开始获取 NEW TOKEN...")
 	client := ClientOption{
 		Url:    "https://api.bokao2o.com/auth/merchant/v2/user/login",
 		Params: nil,
