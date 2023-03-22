@@ -7,8 +7,6 @@ import (
 	"time"
 )
 
-var DB *gorm.DB
-
 func InitDB(DBFilePath string, models []interface{}) {
 
 	db, err := gorm.Open(sqlite.Open(DBFilePath), &gorm.Config{})

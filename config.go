@@ -8,12 +8,6 @@ import (
 	"os"
 )
 
-const (
-	ConfigFile = "./conf/config.yaml"
-)
-
-var CONFIG *Config
-
 /*
 *******************************************************************************************
  */
@@ -95,4 +89,5 @@ func InitConf(path ...string) {
 	if err = v.Unmarshal(&CONFIG); err != nil {
 		fmt.Println(err)
 	}
+	VP = v
 }
