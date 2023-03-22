@@ -33,10 +33,11 @@ type SystemConfig struct {
 }
 
 type WechatConfig struct {
-	AppID     string `yaml:"appId" mapstructure:"appId" json:"appId"`
-	AppSecret string `yaml:"appSecret" mapstructure:"appSecret" json:"appSecret"`
-	Token     string `yaml:"token" mapstructure:"token" json:"token"`
-	AesKey    string `yaml:"aesKey" mapstructure:"aesKey" json:"aesKey"`
+	AppID       string `yaml:"appId" mapstructure:"appId" json:"appId"`
+	AppSecret   string `yaml:"appSecret" mapstructure:"appSecret" json:"appSecret"`
+	Token       string `yaml:"token" mapstructure:"token" json:"token"`
+	AesKey      string `yaml:"aesKey" mapstructure:"aesKey" json:"aesKey"`
+	AdminOpenid string `yaml:"adminOpenid" mapstructure:"adminOpenid" json:"adminOpenid"`
 }
 
 type BoKaConfig struct {
