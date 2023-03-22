@@ -42,11 +42,13 @@ func (user *UsersCourse) GetCourse(data gjson.Result) (personId string, userCour
 	}
 	result := data.Get("result.0").Array()
 	// 获取工号
-	personId = result[0].Get("person_id").String()
+
 	userCourse.User = personId
 	for k := range result {
 		if result[k].Get("action_id").Int() == 0 && result[k].Get("person_id").Int() != 0 {
-
+			if personId == "" {
+				personId = result[k].Get("person_id").String()
+			}
 			//a := result[k].Get("amt").Num
 			var userDetail UserDetail
 
