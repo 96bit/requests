@@ -121,7 +121,7 @@ func (P *PushWechatOption) CeShiTemplate(openid string, Card string, State strin
 	}
 	P.Body = map[string]interface{}{
 		"touser":      openid,
-		"template_id": "Vbl1Y2PpiVuNsbEBOfoskQ5hi33eVExQAeaWbmJuy5c",
+		"template_id": "Jmb15makmeRCSHCIifxWYGApK_7TF0CT2H4lRnjIEko",
 		"url":         "https://m.bokao2o.com/store/PDKQG/cardBag",
 		"data": map[string]interface{}{
 			"first": map[string]interface{}{
