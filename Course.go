@@ -7,22 +7,22 @@ import (
 )
 
 type UsersCourse struct {
-	Course map[string]UserCourse
+	Course map[string]UserCourse `json:"course,omitempty"`
 }
 
 type UserCourse struct {
-	User    string
-	Total   int64
-	Tickets []UserDetail
+	User    string       `json:"user,omitempty"`
+	Total   int64        `json:"total,omitempty"`
+	Tickets []UserDetail `json:"tickets,omitempty"`
 }
 type UserDetail struct {
-	Date            string
-	Name            string
-	Amount          int64
-	ActualAmount    int64
-	MethodPayment   string
-	ShareProportion float64
-	Detail          string
+	Date            string  `json:"date,omitempty"`
+	Name            string  `json:"name,omitempty"`
+	Amount          int64   `json:"amount,omitempty"`
+	ActualAmount    int64   `json:"actualAmount,omitempty"`
+	MethodPayment   string  `json:"methodPayment,omitempty"`
+	ShareProportion float64 `json:"shareProportion,omitempty"`
+	Detail          string  `json:"detail,omitempty"`
 }
 
 func (user *UsersCourse) GetCourses(data gjson.Result) {
