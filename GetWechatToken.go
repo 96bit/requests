@@ -20,7 +20,7 @@ func (config *WeChatAccessTokenConfig) GetAccessToken() (token string, err error
 			"force_refresh": false,
 		},
 	}
-	res := Client.ToJson(Client.Get())
+	res := Client.ToJson(Client.Post())
 	Token := res.Get("access_token").String()
 	if Token == "" {
 		return "", errors.New(res.String())
