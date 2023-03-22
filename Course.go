@@ -8,9 +8,9 @@ import (
 
 type UserCourse struct {
 	Total   int64
-	Tickets []userDetail
+	Tickets []UserDetail
 }
-type userDetail struct {
+type UserDetail struct {
 	Date            string
 	Name            string
 	Amount          int64
@@ -20,8 +20,7 @@ type userDetail struct {
 	Detail          string
 }
 
-func (user *UserCourse) getCourse(token string, shopId string, userId string, dates ...string) {
-	data := GetUserResults(token, shopId, userId, dates...)
+func (user *UserCourse) GetCourse(data gjson.Result) {
 	if data.Get("code").Int() != 200 {
 		return
 	}
@@ -31,7 +30,7 @@ func (user *UserCourse) getCourse(token string, shopId string, userId string, da
 		if result[k].Get("action_id").Int() == 0 && result[k].Get("person_id").Int() != 0 {
 
 			//a := result[k].Get("amt").Num
-			var userDetail userDetail
+			var userDetail UserDetail
 
 			userDetail.Amount = result[k].Get("amt").Int()
 			userDetail.ActualAmount = result[k].Get("amt3").Int()
