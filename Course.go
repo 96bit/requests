@@ -27,12 +27,12 @@ type UserDetail struct {
 
 func (user *UsersCourse) GetCourses(data gjson.Result) {
 	result := data.Get("result").Array()
+	user.Course = make(map[string]UserCourse)
 
-	for k := range result {
-		userId, course := user.GetCourse(result[k])
+	for _, k := range result {
+		userId, course := user.GetCourse(k)
 		user.Course[userId] = course
 	}
-
 	return
 }
 
