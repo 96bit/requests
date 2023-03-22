@@ -13,11 +13,11 @@ type WeChatAccessTokenConfig struct {
 func (config *WeChatAccessTokenConfig) GetAccessToken() (token string, err error) {
 	Client := ClientOption{
 		Url: "https://api.weixin.qq.com/cgi-bin/stable_token",
-		Params: map[string]string{
+		Body: map[string]interface{}{
 			"grant_type":    "client_credential",
 			"appid":         config.Appid,
 			"secret":        config.Secret,
-			"force_refresh": "false",
+			"force_refresh": false,
 		},
 	}
 	res := Client.ToJson(Client.Get())
