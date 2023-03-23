@@ -77,7 +77,9 @@ func (user *UsersCourse) GetCourse(data gjson.Result) (personId string, userCour
 		}
 	}
 	for k := range userCourse.Tickets {
-		userCourse.Total += userCourse.Tickets[k].ActualAmount
+		if userCourse.Tickets[k].Detail != "充值或卖卡" {
+			userCourse.Total += userCourse.Tickets[k].ActualAmount
+		}
 	}
 	return
 }
