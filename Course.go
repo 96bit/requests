@@ -48,7 +48,9 @@ func (user *UsersCourse) GetCourses(data gjson.Result) {
 func (user *UsersCourse) GetCourse(data gjson.Result) (personId string, userCourse UserCourse) {
 
 	for _, result := range data.Array() {
-		if result.Get("action_id").Int() == 0 && result.Get("person_id").Int() != 0 {
+		actionID := result.Get("action_id").Int()
+
+		if (actionID == 0 || actionID == 1) && result.Get("person_id").Int() != 0 {
 			if personId == "" {
 				personId = result.Get("person_id").String()
 				userCourse.User = personId
