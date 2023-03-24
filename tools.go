@@ -1,6 +1,8 @@
 package requests
 
 import (
+	"github.com/gofrs/uuid"
+	"log"
 	"sort"
 )
 
@@ -19,4 +21,12 @@ func LetterArr(startLetter int32, endLetter int32) (strArr []string) {
 		strArr = append(strArr, string(i))
 	}
 	return
+}
+
+func GetUUID() string {
+	u2, err := uuid.NewV6()
+	if err != nil {
+		log.Println("")
+	}
+	return u2.String()
 }
