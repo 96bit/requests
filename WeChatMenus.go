@@ -3,6 +3,7 @@ package requests
 import (
 	"encoding/json"
 	"github.com/tidwall/gjson"
+	"log"
 	"os"
 )
 
@@ -13,6 +14,7 @@ func CreateWechatMenu(token string, menusJson string, defaultJsonFilePath string
 		data, _ := json.Marshal(menus)
 		return string(data)
 	}
+	log.Println(menus)
 	if menusJson == "set" {
 		Client := ClientOption{
 			Url: "https://api.weixin.qq.com/cgi-bin/menu/create",
