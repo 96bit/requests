@@ -1,16 +1,17 @@
 package requests
 
 import (
-	"errors"
 	"log"
 )
+
+var WECHATOKEN string
 
 type WeChatAccessTokenConfig struct {
 	Appid  string `json:"appid"`
 	Secret string `json:"secret"`
 }
 
-func (config *WeChatAccessTokenConfig) GetAccessToken() (token string, err error) {
+func (config *WeChatAccessTokenConfig) GetAccessToken() {
 	Client := ClientOption{
 		Url: "https://api.weixin.qq.com/cgi-bin/stable_token",
 		Body: map[string]interface{}{
@@ -21,11 +22,7 @@ func (config *WeChatAccessTokenConfig) GetAccessToken() (token string, err error
 		},
 	}
 	res := Client.ToJson(Client.Post())
-	Token := res.Get("access_token").String()
-	if Token == "" {
-		return "", errors.New(res.String())
-	}
-	log.Printf("GetAccessToken: %s", res)
+	WECHATOKEN = res.Get("access_token").String()
 
-	return Token, nil
+	log.Printf("GetAccessToken: %s", res)
 }
