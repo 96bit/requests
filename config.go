@@ -21,10 +21,11 @@ type Config struct {
 }
 
 type SystemConfig struct {
-	Name string `mapstructure:"name" json:"name" yaml:"name"`
-	Port string `mapstructure:"port" json:"port" yaml:"port"`
-	Mode string `mapstructure:"mode" json:"mode" yaml:"mode"`
-	Env  string `mapstructure:"env" json:"env" yaml:"env"`
+	Name   string `mapstructure:"name" json:"name" yaml:"name"`
+	Port   string `mapstructure:"port" json:"port" yaml:"port"`
+	Mode   string `mapstructure:"mode" json:"mode" yaml:"mode"`
+	Env    string `mapstructure:"env" json:"env" yaml:"env"`
+	Domain string `mapstructure:"domain" json:"domain" yaml:"domain"`
 }
 
 type WechatConfig struct {
