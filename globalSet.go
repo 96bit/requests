@@ -38,6 +38,15 @@ func (s *Set) Add(item string) {
 // 移除一个元素
 // 时间复杂度等于字典删除键值对的复杂度，哈希不冲突的时间复杂度为：O(1)，否则为 O(n)
 
+func (s *Set) Check(item string) bool {
+	if s.Has(item) {
+		s.Remove(item)
+		return true
+	} else {
+		return false
+	}
+}
+
 func (s *Set) Remove(item string) {
 	s.Lock()
 	defer s.Unlock()
