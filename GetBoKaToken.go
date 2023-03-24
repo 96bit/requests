@@ -1,9 +1,9 @@
 package requests
 
-import (
-	"errors"
-	"log"
-)
+import "log"
+
+var BOKATOKEN string
+var BOKASHOPID string
 
 type BoKaLoginConfig struct {
 	CustID   string `json:"custId"`
@@ -13,8 +13,7 @@ type BoKaLoginConfig struct {
 	Source   string `json:"source"`
 }
 
-func (config *BoKaLoginConfig) GetBoKaToken() (token string, shopId string, err error) {
-	log.Println("开始获取 NEW TOKEN...")
+func (config *BoKaLoginConfig) GetBoKaToken() {
 	client := ClientOption{
 		Url:    "https://api.bokao2o.com/auth/merchant/v2/user/login",
 		Params: nil,
@@ -32,11 +31,6 @@ func (config *BoKaLoginConfig) GetBoKaToken() (token string, shopId string, err 
 	}
 	res := client.Post()
 	data := client.ToJson(res)
-	if data.Get("code").Num == 200 {
-		return data.Get("result.token").String(),
-			data.Get("result.shopId").String(), nil
-	} else {
-		return "", "", errors.New(data.String())
-	}
-
+	BOKATOKEN, BOKASHOPID = data.Get("result.token").String(), data.Get("result.shopId").String()
+	log.Printf("开始获取 NEW TOKEN:%v", string(res))
 }
