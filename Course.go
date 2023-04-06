@@ -81,7 +81,7 @@ func (user *UsersCourse) GetCourse(data gjson.Result) (personId string, userCour
 		}
 
 		// 课程消耗
-		if actionID == 3 && result.Get("person_id").Int() != 0 {
+		if (actionID == 3 || actionID == 6) && result.Get("person_id").Int() != 0 {
 			if result.Get("payway").Str == "疗程账户" {
 				userCourse.Consume += result.Get("amt3").Int()
 			}
