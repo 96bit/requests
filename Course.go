@@ -14,6 +14,7 @@ type UserCourse struct {
 	User    string       `json:"user"`
 	Total   int64        `json:"total"`
 	Consume int64        `json:"consume"`
+	Case    int64        `json:"case"`
 	Tickets []UserDetail `json:"tickets"`
 }
 type UserDetail struct {
@@ -91,6 +92,8 @@ func (user *UsersCourse) GetCourse(data gjson.Result) (personId string, userCour
 	for k := range userCourse.Tickets {
 		if userCourse.Tickets[k].Detail != "充值或卖卡" {
 			userCourse.Total += userCourse.Tickets[k].ActualAmount
+		} else {
+			userCourse.Case += userCourse.Tickets[k].ActualAmount
 		}
 
 	}
