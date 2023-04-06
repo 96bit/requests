@@ -13,6 +13,7 @@ type UsersCourse struct {
 type UserCourse struct {
 	User    string       `json:"user"`
 	Total   int64        `json:"total"`
+	Consume int64        `json:"consume"`
 	Tickets []UserDetail `json:"tickets"`
 }
 type UserDetail struct {
@@ -77,11 +78,21 @@ func (user *UsersCourse) GetCourse(data gjson.Result) (personId string, userCour
 			userCourse.Tickets = append(userCourse.Tickets, userDetail)
 
 		}
+
+		// 课程消耗
+
+		if actionID == 3 && result.Get("person_id").Int() != 0 {
+			if result.Get("payway").Str == "疗程账户" {
+				userCourse.Consume += result.Get("amt3").Int()
+			}
+		}
 	}
+
 	for k := range userCourse.Tickets {
 		if userCourse.Tickets[k].Detail != "充值或卖卡" {
 			userCourse.Total += userCourse.Tickets[k].ActualAmount
 		}
+
 	}
 	return
 }
