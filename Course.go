@@ -50,12 +50,13 @@ func (user *UsersCourse) GetCourse(data gjson.Result) (personId string, userCour
 
 	for _, result := range data.Array() {
 		actionID := result.Get("action_id").Int()
+		// 获取员工工号
+		if personId == "" && result.Get("person_id").Int() != 0 {
+			personId = result.Get("person_id").String()
+			userCourse.User = personId
+		}
 
 		if (actionID == 0 || actionID == 1) && result.Get("person_id").Int() != 0 {
-			if personId == "" {
-				personId = result.Get("person_id").String()
-				userCourse.User = personId
-			}
 			//a := result[k].Get("amt").Num
 			var userDetail UserDetail
 
@@ -80,7 +81,6 @@ func (user *UsersCourse) GetCourse(data gjson.Result) (personId string, userCour
 		}
 
 		// 课程消耗
-
 		if actionID == 3 && result.Get("person_id").Int() != 0 {
 			if result.Get("payway").Str == "疗程账户" {
 				userCourse.Consume += result.Get("amt3").Int()
